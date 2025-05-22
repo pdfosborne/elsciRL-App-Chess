@@ -111,7 +111,7 @@ class Engine:
 
     def white_move(self, action:any):
         self.board.push_san(self.board.san(chess.Move.from_uci(action)))        
-        obs = self.board.fen()
+        obs = self.board
         terminated = self.board.is_game_over()
         if self.custom_termination:
             if not terminated:
