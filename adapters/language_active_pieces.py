@@ -12,7 +12,7 @@ from gymnasium.spaces import Box
 # StateAdapter includes static methods for adapters
 from elsciRL.encoders.sentence_transformer_MiniLM_L6v2 import LanguageEncoder
 
-class LanguageAdapter:
+class Adapter:
     _cached_state_idx: Dict[str, int] = dict()
 
     def __init__(self):

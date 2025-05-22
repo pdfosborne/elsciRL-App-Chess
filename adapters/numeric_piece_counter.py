@@ -10,7 +10,7 @@ from chess import Board, SQUARES_180
 # Link to relevant ENCODER
 from elsciRL.encoders.observable_objects_encoded import ObjectEncoder
 
-class NumericAdapter: 
+class Adapter: 
     @staticmethod
     def chess_object_lst() -> List[str]:
         chess_pieces = ['K','Q','R','B','N','P', 

@@ -7,7 +7,7 @@ from elsciRL.encoders.poss_state_encoded import StateEncoder
 
 from chess import Board, SQUARES_180
 
-class DefaultAdapter:
+class Adapter:
     _cached_state_idx: Dict[str, int] = dict()
     @staticmethod
     def compact_lst(board: Board) -> List[str]:
