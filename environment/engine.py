@@ -111,14 +111,15 @@ class Engine:
 
     def white_move(self, action:any):
         self.board.push_san(self.board.san(chess.Move.from_uci(action)))        
-        obs = self.board
+        obs = self.board.fen()
+        board = self.board
         terminated = self.board.is_game_over()
         if self.custom_termination:
             if not terminated:
                 # Custom termination on first capture
                 if self.custom_termination == "first_capture":
                     # - Check if the number of pieces on the board is less than 74
-                    if np.sum([obs.piece_type_at(sq) for sq in chess.SQUARES if obs.piece_type_at(sq) is not None])<74:
+                    if np.sum([board.piece_type_at(sq) for sq in chess.SQUARES if board.piece_type_at(sq) is not None])<74:
                         terminated = True
         
         return obs, terminated
