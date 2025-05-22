@@ -76,7 +76,7 @@ class Engine:
         self.training_opponent = OPPONENT_AGENT_TYPES[opponent_agent](**opponent_agent_parameters) 
         # ---
 
-    def reward_signal(self, obs:any):
+    def reward_signal_function(self, obs:any):
         game_result = obs.result()
         if self.reward_signal:
             # Custom reward signal from env config
@@ -155,7 +155,7 @@ class Engine:
             terminated = self.black_move()
         
         # - Game may end on black move so need to apply this to white's last move
-        reward =  self.reward_signal(obs)
+        reward =  self.reward_signal_function(obs)
         return obs, reward, terminated, {}
 
     def legal_move_generator(self, obs:any=None):
