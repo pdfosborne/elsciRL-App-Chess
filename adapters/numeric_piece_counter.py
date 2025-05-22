@@ -28,7 +28,7 @@ class Adapter:
 
         return builder
 
-    def __init__(self) :
+    def __init__(self, setup_info:dict={}) -> None:
         # Initialise general encoder with local game objects
         self.local_objects = {obj: i for i, obj in enumerate(self.chess_object_lst())}
         self.encoder = ObjectEncoder(list(self.local_objects.keys()) + ["."])
@@ -36,12 +36,12 @@ class Adapter:
         # Define observation space
         self.observation_space = Discrete(12)
 
-    def adapter(self, board_fen: str, legal_moves:list = None, episode_action_history:list = None, encode:bool=True, indexed: bool = False) -> Tensor:     
+    def adapter(self, state: str, legal_moves:list = None, episode_action_history:list = None, encode:bool=True, indexed: bool = False) -> Tensor:     
         """ Pieces on board are counted to define state.
         12 piece types define the observation space."""
 
         # Transform state
-        board = chess.Board(board_fen)
+        board = chess.Board(state.fen())
         board_flip = board.copy(stack=False)
         board_flip.apply_transform(chess.flip_vertical)
         state = self.compact_lst(board_flip) # Returns board as list of strings for each board position -> len=64
@@ -62,7 +62,7 @@ class Adapter:
                        'b1a3', 'e4e5', 'h2h3', 'g2g3', 'f2f3', 'd2d3', 'c2c3', 
                        'b2b3', 'a2a3', 'h2h4', 'g2g4', 'f2f4', 'd2d4', 'c2c4', 'b2b4', 'a2a4']
         episode_action_history = ['e2e4', 'c7c5']
-        adapter = BoardAdapter()
+        adapter = Adapter()
         state = adapter.adapter(board, legal_moves, episode_action_history, encode=False)
         state_encoded = adapter.adapter(board, legal_moves, episode_action_history, encode=True)
         return state, state_encoded

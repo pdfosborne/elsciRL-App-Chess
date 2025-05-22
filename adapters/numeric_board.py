@@ -20,7 +20,7 @@ class Adapter:
 
         return builder
     
-    def __init__(self):
+    def __init__(self,setup_info:dict={}) -> None:
         # TODO: Update this based on the current problem, each requires preset knowledge of all possible states/actions/objects
         # - Possible States
         # - Possible Actions

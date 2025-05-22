@@ -15,7 +15,7 @@ from elsciRL.encoders.sentence_transformer_MiniLM_L6v2 import LanguageEncoder
 class Adapter:
     _cached_state_idx: Dict[str, int] = dict()
 
-    def __init__(self):
+    def __init__(self, setup_info:dict={}) -> None:
         self.encoder = LanguageEncoder()
         self.start_name_lookup: dict = {
             '1':{'a':"White Queen's Rook", 'b':"White Queen's Knight", 'c':"White Queen's Bishop", 'd':"White Queen", 
@@ -29,7 +29,7 @@ class Adapter:
          
         self.observation_space = Box(low=-1, high=1, shape=(1,384), dtype=np.float32)
     
-    def adapter(self, board_fen:str, legal_moves:list = None, episode_action_history:list = None, encode:bool = True, indexed: bool = False) -> Tensor:
+    def adapter(self, state:str, legal_moves:list = None, episode_action_history:list = None, encode:bool = True, indexed: bool = False) -> Tensor:
         """ Use Language name for every ACTIVE piece name for current board position."""
         #board = chess.Board(board_fen) # not used in this adapter so not calling
         # Not perfect, if piece ended up back in starting position then it's deemed 'inactive'
@@ -62,9 +62,9 @@ class Adapter:
         if (indexed):
             state_indexed = list()
             for sent in state:
-                if (sent not in ActivePiecesLanguageAdapter._cached_state_idx):
-                    ActivePiecesLanguageAdapter._cached_state_idx[sent] = len(ActivePiecesLanguageAdapter._cached_state_idx)
-                state_indexed.append(ActivePiecesLanguageAdapter._cached_state_idx[sent])
+                if (sent not in Adapter._cached_state_idx):
+                    Adapter._cached_state_idx[sent] = len(Adapter._cached_state_idx)
+                state_indexed.append(Adapter._cached_state_idx[sent])
 
             state_encoded = torch.tensor(state_indexed)
 
@@ -78,12 +78,12 @@ class Adapter:
                        'b1a3', 'e4e5', 'h2h3', 'g2g3', 'f2f3', 'd2d3', 'c2c3', 
                        'b2b3', 'a2a3', 'h2h4', 'g2g4', 'f2f4', 'd2d4', 'c2c4', 'b2b4', 'a2a4']
         episode_action_history = ['e2e4', 'c7c5']
-        adapter = ActivePiecesLanguageAdapter()
+        adapter = Adapter()
         state = adapter.adapter(board, legal_moves, [], encode=False)
         state = adapter.adapter(board, legal_moves, [episode_action_history[0]], encode=False)
         state = adapter.adapter(board, legal_moves, episode_action_history, encode=False)
         # ---
-        adapter = ActivePiecesLanguageAdapter()
+        adapter = Adapter()
         state_encoded = adapter.adapter(board, legal_moves, [], encode=True)
         state_encoded = adapter.adapter(board, legal_moves, [episode_action_history[0]], encode=True)
         state_encoded = adapter.adapter(board, legal_moves, episode_action_history, encode=True)
