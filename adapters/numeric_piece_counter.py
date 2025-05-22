@@ -41,7 +41,7 @@ class Adapter:
         12 piece types define the observation space."""
 
         # Transform state
-        board = chess.Board(state.fen())
+        board = chess.Board(state)
         board_flip = board.copy(stack=False)
         board_flip.apply_transform(chess.flip_vertical)
         state = self.compact_lst(board_flip) # Returns board as list of strings for each board position -> len=64
