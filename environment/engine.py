@@ -23,6 +23,10 @@ class Engine:
     """
     def __init__(self, local_setup_info:dict={}) -> None:
         """Initialize Engine"""
+        if "custom_termination" in local_setup_info:
+            self.custom_termination = local_setup_info["custom_termination"]
+        else:
+            self.custom_termination = None
         # Ledger of the environment with meta information for the problem
         ledger_required = {
             'id': 'Unique Problem ID',
@@ -109,6 +113,14 @@ class Engine:
         self.board.push_san(self.board.san(chess.Move.from_uci(action)))        
         obs = self.board.fen()
         terminated = self.board.is_game_over()
+        if self.custom_termination:
+            if not terminated:
+                # Custom termination on first capture
+                if self.custom_termination == "first_capture":
+                    # - Check if the number of pieces on the board is less than 74
+                    if np.sum([obs.piece_type_at(sq) for sq in chess.SQUARES if obs.piece_type_at(sq) is not None])<74:
+                        terminated = True
+        
         return obs, terminated
     
 
@@ -116,12 +128,11 @@ class Engine:
         # Black move
         obs = self.board.fen()
         legal_moves = self.legal_move_generator(obs)
-        terminated = False
         if len(legal_moves) > 0:
             action = self.training_opponent.policy(obs, legal_moves)
             self.board.push_san(self.board.san(chess.Move.from_uci(action)))
-
             terminated = self.board.is_game_over()
+
         return terminated
 
     def reset(self, start_obs:any=None):
