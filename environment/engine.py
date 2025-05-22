@@ -77,7 +77,8 @@ class Engine:
         # ---
 
     def reward_signal_function(self, obs:any):
-        game_result = obs.result()
+        board = chess.Board(obs)
+        game_result = board.result()
         if self.reward_signal:
             # Custom reward signal from env config
             # Win
