@@ -15,10 +15,8 @@ class Adapter:
         builder = ["."] * len(SQUARES_180)
         for i, square in enumerate(SQUARES_180):
             piece = board.piece_at(square)
-
             if piece:
                 builder[i] = piece.symbol()
-
         return builder
     
     def __init__(self,setup_info:dict={}) -> None:
@@ -37,6 +35,6 @@ class Adapter:
         board_flip = board.copy(stack=False)
         board_flip.apply_transform(chess.flip_vertical)
         state = self.compact_lst(board_flip)
-       
-        state_encoded = torch.tensor(state)
+
+        state_encoded = state#torch.tensor(state)
         return state_encoded
