@@ -1,5 +1,5 @@
 {
- "adapter_select": ["Default"],
+ "adapter_select": ["numeric_board"],
  "action_cap": 50,
  "reward_signal": [1,-0.1,0,0],
  "opponent_agent": "Random",

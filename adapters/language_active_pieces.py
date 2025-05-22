@@ -5,7 +5,6 @@ import torch
 from torch import Tensor
 
 import chess
-from chess import Board
 
 from gymnasium.spaces import Box
 
