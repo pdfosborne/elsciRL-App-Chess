@@ -32,8 +32,8 @@ class Adapter:
         
     def adapter(self, state:any, legal_moves:list = None, episode_action_history:list = None, encode:bool = True, indexed: bool = False) -> Tensor:
         """  """
-
-        board_flip = state.copy(stack=False)
+        board = chess.Board(state)
+        board_flip = board.copy(stack=False)
         board_flip.apply_transform(chess.flip_vertical)
         state = self.compact_lst(board_flip)
        
