@@ -5,6 +5,7 @@ from torch import Tensor
 # StateAdapter includes static methods for adapters
 from elsciRL.encoders.poss_state_encoded import StateEncoder
 
+import chess
 from chess import Board, SQUARES_180
 
 class Adapter:
