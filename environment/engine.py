@@ -169,7 +169,7 @@ class Engine:
         """Render the current chess board using matplotlib."""
         # Generate SVG image of the board
         if state:
-            svg_board = chess.svg.board(state)
+            svg_board = chess.svg.board(chess.Board(state))
         else:
             svg_board = chess.svg.board(self.board)
         # Convert SVG to PNG using PIL
