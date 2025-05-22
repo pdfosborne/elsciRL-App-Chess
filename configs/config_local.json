@@ -3,5 +3,7 @@
  "action_cap": 50,
  "reward_signal": [1,-0.1,0,0],
  "opponent_agent": "Random",
+ "sub_goal": "None",
  "custom_termination": "first_capture"
+ 
 }
