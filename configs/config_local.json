@@ -4,6 +4,11 @@
  "reward_signal": [1,-0.1,0,0],
  "opponent_agent": "Random",
  "sub_goal": "None",
- "custom_termination": "first_capture"
- 
+ "custom_termination": "first_capture",
+
+ "model_name": "llama3.2",
+ "system_prompt": "You are playing a game of Chess.",
+ "action_history_length": 20,
+ "encoder": "MiniLM_L6v2"
+
 }
