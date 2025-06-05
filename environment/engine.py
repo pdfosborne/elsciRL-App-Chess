@@ -10,7 +10,6 @@ from elsciRL.agents.random_agent import RandomAgent
 import chess.svg
 from io import BytesIO
 from PIL import Image
-import cairosvg
 import matplotlib.pyplot as plt
 
 
@@ -178,10 +177,24 @@ class Engine:
         img_bytes.seek(0)
         # Use cairosvg to convert SVG to PNG
         try:
-            png_bytes = cairosvg.svg2png(bytestring=svg_board)
-            img = Image.open(BytesIO(png_bytes))
+            # Use svglib as a cross-platform alternative
+            from svglib.svglib import svg2rlg
+            from reportlab.graphics import renderPM
+            
+            # Convert SVG string to bytes
+            svg_bytes = BytesIO(svg_board.encode('utf-8'))
+            
+            # Convert SVG to reportlab drawing
+            drawing = svg2rlg(svg_bytes)
+            
+            # Convert drawing to PNG bytes
+            png_bytes = BytesIO()
+            renderPM.drawToFile(drawing, png_bytes, fmt='PNG')
+            png_bytes.seek(0)
+            
+            img = Image.open(png_bytes)
         except ImportError:
-            raise ImportError("cairosvg is required for rendering the chess board. Install with 'pip install cairosvg'.")
+            raise ImportError("svglib and reportlab are required for rendering the chess board. Install with 'pip install svglib reportlab'.")
         # Display with matplotlib
         plt.figure(figsize=(6,6))
         plt.imshow(np.asarray(img))
