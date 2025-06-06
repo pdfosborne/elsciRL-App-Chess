@@ -9,6 +9,7 @@ from elsciRL.agents.random_agent import RandomAgent
 import urllib
 import json
 import random
+from typing import List
 
 # Imports for rendering
 import chess.svg
@@ -34,7 +35,7 @@ class RandomAgentFiltered(Agent):
         # with open('./environment/opponent_agents/data/stats_map.json', 'r') as json_file:
         #     self.player_data_dict = json.load(json_file)
 
-    def policy(self, board_p: Board):
+    def policy(self, board_p: Board, legal_moves:List[str]=None):
         # Go through each known move from player data and extract move_uci of known moves
         filtered_legal_moves = []
         for move in self.player_data_dict[str(board_p.fen())]:

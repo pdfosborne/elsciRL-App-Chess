@@ -8,6 +8,7 @@ import random
 import json
 from tqdm import tqdm
 import urllib
+from typing import List
 
 class RandomAgentFiltered(Agent):
     """ This is simply a random decision maker, does not learn. 
@@ -25,7 +26,7 @@ class RandomAgentFiltered(Agent):
         # with open('./environment/opponent_agents/data/stats_map.json', 'r') as json_file:
         #     self.player_data_dict = json.load(json_file)
 
-    def policy(self, board_p: Board):
+    def policy(self, board_p: Board,  legal_moves:List[str]=None):
         # Go through each known move from player data and extract move_uci of known moves
         filtered_legal_moves = []
         for move in self.player_data_dict[str(board_p.fen())]:
