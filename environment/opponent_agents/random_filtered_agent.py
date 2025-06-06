@@ -19,7 +19,7 @@ class RandomAgentFiltered(Agent):
         #                              "totalGames": int } 
 
         # Get player move stats data from public source
-        data_source = 'https://raw.githubusercontent.com/pdfosborne/elsciRL-App-Chess/commit_id/environment/opponent_agents/data/stats_map.json'
+        data_source = 'https://raw.githubusercontent.com/pdfosborne/elsciRL-App-Chess/main/environment/opponent_agents/data/stats_map.json'
         self.player_data_dict = json.loads(urllib.request.urlopen(data_source).read())
 
         # with open('./environment/opponent_agents/data/stats_map.json', 'r') as json_file:
