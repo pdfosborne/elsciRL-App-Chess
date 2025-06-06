@@ -5,6 +5,7 @@ import numpy as np
 
 # Opponent agent imports
 from elsciRL.agents.random_agent import RandomAgent
+from opponent_agents.random_filtered_agent import RandomAgentFiltered
 
 # Imports for rendering
 import chess.svg
@@ -65,10 +66,12 @@ class Engine:
         # Opponent agent is unique to Chess as part of the Probabilistic environment
         # But for ease we utilize the agent functions within elcsiRL for the opponent
         OPPONENT_AGENT_TYPES = {
-            "Random": RandomAgent
+            "Random": RandomAgent,
+            "Random_filtered":RandomAgentFiltered
         }
         OPPONENT_AGENT_PARAMETERS = {
-            "Random":{}
+            "Random":{},
+            "Random_filtered":{}
         }
         opponent_agent = local_setup_info['opponent_agent']
         opponent_agent_parameters = OPPONENT_AGENT_PARAMETERS[opponent_agent]
