@@ -49,7 +49,7 @@ class RandomAgentFiltered(Agent):
             else:
                 move_uci = str(random.choice(legal_moves)) 
         else:
-            move = str(random.choice(legal_moves))
+            move_uci = str(random.choice(legal_moves))
             
         return move_uci
 
