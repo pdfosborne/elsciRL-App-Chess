@@ -18,7 +18,7 @@ class Adapter:
             if piece:
                 builder[i] = piece.symbol()
         return builder
-    
+   
     def __init__(self,setup_info:dict={}) -> None:
         # TODO: Update this based on the current problem, each requires preset knowledge of all possible states/actions/objects
         # - Possible States
@@ -28,6 +28,12 @@ class Adapter:
     
         # Initialise encoder based on all possible env states
         self.observation_space = 12
+
+        self.chess_piece_number = {
+            '.':0,
+            'K':1,'Q':2,'R':3,'B':4,'N':5,'P':6, 
+            'k':7,'q':8,'r':9,'b':10,'n':11,'p':12
+            }
         
     def adapter(self, state:any, legal_moves:list = None, episode_action_history:list = None, encode:bool = True, indexed: bool = False) -> Tensor:
         """  """
@@ -36,5 +42,14 @@ class Adapter:
         board_flip.apply_transform(chess.flip_vertical)
         state = self.compact_lst(board_flip)
 
-        state_encoded = state#torch.tensor(state)
+        if encode:
+            state_encoded = []
+            for piece in state:
+                state_encoded.append(self.chess_piece_number[piece])
+
+            state_encoded = torch.tensor(state_encoded)
+
+        else:
+            state_encoded = state
+        
         return state_encoded
