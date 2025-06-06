@@ -35,18 +35,18 @@ class RandomAgentFiltered(Agent):
         # with open('./environment/opponent_agents/data/stats_map.json', 'r') as json_file:
         #     self.player_data_dict = json.load(json_file)
 
-    def policy(self, board_p: Board, legal_moves:List[str]=None):
+    def policy(self, board_p_fen:str, legal_moves:List[str]=None):
         # Go through each known move from player data and extract move_uci of known moves
         filtered_legal_moves = []
-        for move in self.player_data_dict[str(board_p.fen())]:
-            if self.player_data_dict[str(board_p.fen())][move]["totalGames"] > 10:
+        for move in self.player_data_dict[str(board_p_fen)]:
+            if self.player_data_dict[board_p_fen][move]["totalGames"] > 10:
                 filtered_legal_moves.append(move)
         
         # In cases where a known list of moves doesn't exist, pick from full list of legal moves
         if len(filtered_legal_moves) != 0:
             move_uci = str(random.choice(filtered_legal_moves))
         else:
-            move_uci = str(random.choice(list(board_p.legal_moves))) 
+            move_uci = str(random.choice(legal_moves)) 
             
         return move_uci
 
