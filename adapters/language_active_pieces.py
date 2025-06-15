@@ -9,7 +9,7 @@ import chess
 from gymnasium.spaces import Box
 
 # StateAdapter includes static methods for adapters
-from elsciRL.encoders.sentence_transformer_MiniLM_L6v2 import LanguageEncoder
+from elsciRL.encoders.language_transformers.MiniLM_L6v2 import LanguageEncoder
 
 class Adapter:
     _cached_state_idx: Dict[str, int] = dict()
