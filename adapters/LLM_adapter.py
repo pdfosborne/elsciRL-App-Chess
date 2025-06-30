@@ -42,7 +42,7 @@ class Adapter:
             encoder=setup_info.get('encoder', 'MiniLM_L6v2')
         )
 
-    def adapter(self, state: str, legal_moves:list = None, episode_action_history:list = None, encode:bool=True, indexed: bool = False) -> Tensor:     
+    def adapter(self, state: str, legal_moves:list = [], episode_action_history:list = [], encode:bool=True, indexed: bool = False) -> Tensor:     
         """ Pieces on board are counted to define state.
         12 piece types define the observation space."""
 

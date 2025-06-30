@@ -35,7 +35,7 @@ class Adapter:
             'k':7,'q':8,'r':9,'b':10,'n':11,'p':12
             }
         
-    def adapter(self, state:any, legal_moves:list = None, episode_action_history:list = None, encode:bool = True, indexed: bool = False) -> Tensor:
+    def adapter(self, state:any, legal_moves:list = [], episode_action_history:list = [], encode:bool = True, indexed: bool = False) -> Tensor:
         """  """
         board = chess.Board(state)
         board_flip = board.copy(stack=False)

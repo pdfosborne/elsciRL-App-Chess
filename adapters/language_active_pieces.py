@@ -28,7 +28,7 @@ class Adapter:
          
         self.observation_space = Box(low=-1, high=1, shape=(1,384), dtype=np.float32)
     
-    def adapter(self, state:str, legal_moves:list = None, episode_action_history:list = None, encode:bool = True, indexed: bool = False) -> Tensor:
+    def adapter(self, state:str, legal_moves:list = [], episode_action_history:list = [], encode:bool = True, indexed: bool = False) -> Tensor:
         """ Use Language name for every ACTIVE piece name for current board position."""
         #board = chess.Board(board_fen) # not used in this adapter so not calling
         # Not perfect, if piece ended up back in starting position then it's deemed 'inactive'
