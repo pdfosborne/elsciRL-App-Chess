@@ -88,6 +88,8 @@ class Engine:
             # Limited to discrete actions for now, set to arbitrary large number if uncertain
             'action_space_size':1000, 
         }
+        # DQN Compatibility need to specify action space size
+        self.output_size = 1000
         self.ledger = ledger_required | ledger_optional | ledger_gym_compatibility
         # --- CHESS ENGINE SETUP ---
         self.board: Board = chess.Board()
